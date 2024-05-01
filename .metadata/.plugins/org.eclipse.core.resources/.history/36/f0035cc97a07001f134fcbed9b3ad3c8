@@ -31,27 +31,6 @@ public class Lista<T> {
 		active = begin;
 	}
 
-	public void insertEnd(T value) {
-		Nodo<T> newNodo = new Nodo<T>(value);
-		
-		if (isEmpty()) {
-			begin = newNodo;
-			begin.setNext(null);
-			begin.setBack(null);
-		} else {
-			Nodo<T> aux = begin;
-			
-			while (aux.getNext() != null) {
-				aux = aux.getNext();
-			}
-			
-			aux.setNext(newNodo);
-			newNodo.setBack(aux);
-		}
-		
-		active = begin;
-	}
-	
 	public void deleteEnd() {
 		Nodo<T> aux = begin;
 		//TODO 
@@ -130,6 +109,31 @@ public class Lista<T> {
 		return null;
 	}
 	
+	public void insertEnd(T value) {
+		Nodo<T> newNodo = new Nodo<T>(value);
+		
+		if (isEmpty()) {
+			begin = newNodo;
+			begin.setNext(null);
+			begin.setBack(null);
+		} else {
+			Nodo<T> aux = begin;
+			
+			while (aux.getNext() != null) {
+				aux = aux.getNext();
+			}
+			
+			aux.setNext(newNodo);
+			newNodo.setBack(aux);
+		}
+		
+		active = begin;
+	}
+	
+	public void deleteIndex() {
+		
+	}
+	
 	public boolean isEmpty() {
 		return begin == null;
 	}
@@ -143,12 +147,6 @@ public class Lista<T> {
 		}
 	}
 		
-	public T next() {
-		Nodo<T> aux = active;
-		active = aux.getNext();
-		return aux.getValue();
-	}
-	
 	public int size() {
 		int cont = 0;
 		while (hasNext()) {
@@ -157,6 +155,12 @@ public class Lista<T> {
 		}
 		
 		return cont;
+	}
+	
+	public T next() {
+		Nodo<T> aux = active;
+		active = aux.getNext();
+		return aux.getValue();
 	}
 	
 	public void showAll() {

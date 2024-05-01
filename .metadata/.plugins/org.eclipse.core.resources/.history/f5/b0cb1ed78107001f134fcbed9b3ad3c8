@@ -62,6 +62,8 @@ public class ControleProduto {
 		}
 	}
 	
+	
+	
 	private void excluirProduto() {
 		visual.menuExcluir();
 		
@@ -80,6 +82,8 @@ public class ControleProduto {
 			}
 		}
 	}
+
+
 
 	public Produto buscarProdutos() {
 		visual.menuBuscar();
@@ -109,6 +113,8 @@ public class ControleProduto {
 			}
 		}
 	}
+
+
 
 	private void menuNovo() {
 		visual.menuNovo();

@@ -130,6 +130,11 @@ public class Lista<T> {
 		return null;
 	}
 	
+	
+	public void deleteIndex() {
+		
+	}
+	
 	public boolean isEmpty() {
 		return begin == null;
 	}
@@ -143,12 +148,6 @@ public class Lista<T> {
 		}
 	}
 		
-	public T next() {
-		Nodo<T> aux = active;
-		active = aux.getNext();
-		return aux.getValue();
-	}
-	
 	public int size() {
 		int cont = 0;
 		while (hasNext()) {
@@ -157,6 +156,12 @@ public class Lista<T> {
 		}
 		
 		return cont;
+	}
+	
+	public T next() {
+		Nodo<T> aux = active;
+		active = aux.getNext();
+		return aux.getValue();
 	}
 	
 	public void showAll() {
