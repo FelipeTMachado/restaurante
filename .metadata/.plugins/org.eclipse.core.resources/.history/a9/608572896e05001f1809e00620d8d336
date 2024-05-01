@@ -1,0 +1,37 @@
+package sistema_restaurante.sistema.modelo;
+
+import sistema_restaurante.sistema.persistencia.Lista;
+
+public class Mesa {
+	// ATRIBUTOS
+	private Lista<Comanda> comandas = new Lista<Comanda>();
+	private Integer quantClientes;
+	
+	
+	// CONSTRUTOR
+	public Mesa() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	// GETTERS AND SETTERS
+	public Lista<Comanda> getComandas() {
+		return comandas;
+	}
+	public void setComandas(Lista<Comanda> comandas) {
+		this.comandas = comandas;
+	}
+
+
+
+	public Integer getQuantClientes() {
+		return quantClientes;
+	}
+
+
+
+	public void setQuantClientes(Integer quantClientes) {
+		this.quantClientes = quantClientes;
+	}
+}

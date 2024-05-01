@@ -1,0 +1,13 @@
+package sistema_restaurante.sistema.modelo;
+
+import java.util.List;
+
+import sistema_restaurante.sistema.persistencia.Lista;
+import sistema_restaurante.sistema.tipo.EStatusPedido;
+
+public class Pedido {
+	private Pessoa garcom;
+	private Lista<Produto> produtos = new Lista<Produto>(); 
+	private EStatusPedido statusPedido;
+	
+}

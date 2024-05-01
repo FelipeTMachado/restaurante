@@ -1,0 +1,14 @@
+package sistema_restaurante.sistema.modelo;
+
+import sistema_restaurante.sistema.persistencia.Lista;
+import sistema_restaurante.sistema.tipo.EStatusPedido;
+
+public class Pedido {
+	private Pessoa garcom;
+	private Mesa mesa;
+	private Lista<Produto> produtos = new Lista<Produto>(); 
+	private EStatusPedido statusPedido;
+	
+	
+	
+}

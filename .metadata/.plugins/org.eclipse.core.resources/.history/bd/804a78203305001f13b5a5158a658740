@@ -1,0 +1,6 @@
+package sistema_restaurante.sistema.modelo;
+
+public class Produto {
+	private String nome;
+	ppivate Decimal valor;
+}

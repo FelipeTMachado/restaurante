@@ -1,0 +1,8 @@
+package sistema_restaurante.sistema.visual;
+
+public class VisualCaixa {
+	// CONSTRUTOR
+	public VisualCaixa() {
+		// TODO Auto-generated constructor stub
+	}
+}

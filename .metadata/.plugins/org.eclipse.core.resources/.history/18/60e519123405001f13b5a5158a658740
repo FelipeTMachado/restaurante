@@ -1,0 +1,12 @@
+package sistema_restaurante.sistema.modelo;
+
+import sistema_restaurante.sistema.persistencia.Lista;
+
+public class Mesa {
+	private int numero;
+	private Lista<Comanda> comandas = new Lista<Comanda>();
+	
+	
+	
+	
+}

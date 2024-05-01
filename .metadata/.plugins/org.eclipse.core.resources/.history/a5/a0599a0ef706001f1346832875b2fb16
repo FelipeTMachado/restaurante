@@ -1,0 +1,5 @@
+package sistema_restaurante.sistema.controle;
+
+public class ControleProduto {
+
+}

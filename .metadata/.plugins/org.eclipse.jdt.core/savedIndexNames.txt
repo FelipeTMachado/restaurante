@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+/home/desenv/Documentos/projetos/workspace_restaurante/.metadata/.plugins/org.eclipse.jdt.core
+1847256580.index
+1952159689.index
+1865797976.index

@@ -1,0 +1,39 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.configuracao.Entrada;
+import sistema_restaurante.sistema.visual.VisualProduto;
+
+public class ControleProduto {
+	// ATRIBUTOS
+	private VisualProduto visual;
+	
+	
+	
+	// CONSTRUTOR
+	public ControleProduto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	// METODOS FUNCIONAIS
+	public void menuPrincipal() {
+		boolean ehSair = false;
+		
+		while(!ehSair) {
+			visual.menuGerenciamento();
+			
+			String opcao = Entrada.getInstance().retornaDado("DIGITE SUA OPCAO: ");
+		}
+	}
+	
+	
+	
+	// GETTERS AND SETTERS
+	public VisualProduto getVisual() {
+		return visual;
+	}
+	public void setVisual(VisualProduto visual) {
+		this.visual = visual;
+	}
+}

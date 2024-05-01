@@ -1,0 +1,5 @@
+package sistema_restaurante.sistema.modelo;
+
+public class Mesa {
+
+}

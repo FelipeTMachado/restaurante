@@ -1,0 +1,5 @@
+package sistema_restaurante.sistema.persistencia;
+
+public class BaseDados {
+
+}

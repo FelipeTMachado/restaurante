@@ -1,0 +1,8 @@
+package sistema_restaurante.sistema.visual;
+
+public class VisualProduto {
+	// ATRIBUTOS
+	private Integer campoCodigo;
+	private String campoNome;
+	private Double campoValor;
+}

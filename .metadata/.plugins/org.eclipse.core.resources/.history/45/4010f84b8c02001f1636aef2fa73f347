@@ -1,0 +1,33 @@
+package sistema_restaurante.sistema.persistencia;
+
+import sistema_restaurante.sistema.modelo.Mesa;
+import sistema_restaurante.sistema.modelo.Pedido;
+import sistema_restaurante.sistema.modelo.Pessoa;
+
+public class BaseDados {
+	// ATRIBUTO
+	private static BaseDados instance;
+	private Lista<Pessoa> basePessoa = new Lista<Pessoa>();
+	private Lista<Pedido> basePedido = new Lista<Pedido>();
+	private Lista<Mesa>   baseMesa = new Lista<Mesa>();
+	
+	
+	// CONSTRUTOR COMPOSTO SINGLETON
+	private BaseDados() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	public static BaseDados getInstance() {
+		if (instance == null) {
+			instance = new BaseDados();
+		}
+		
+		return instance;
+	}
+	
+	
+	
+	
+}

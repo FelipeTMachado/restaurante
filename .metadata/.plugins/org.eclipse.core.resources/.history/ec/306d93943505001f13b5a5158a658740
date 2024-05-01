@@ -1,0 +1,41 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.configuracao.Entrada;
+import sistema_restaurante.sistema.visual.VisualMesa;
+
+public class ControleMesa {
+	VisualMesa visual;
+	
+	public ControleMesa() {
+		visual = new VisualMesa();
+	}
+	
+	public void menuMesa() {
+		boolean ehSair = false;
+		
+		while (!ehSair) {
+			visual.menuMesa();
+			String opcao = Entrada.getInstance().retornaDado("ESCOLHA SUA OPCAO");
+			
+			switch (opcao) {
+			case "1": {
+				
+				break;
+			}
+			
+			case "2":{
+				
+				break;
+			}
+			
+			case "3": {
+				
+				break;
+			}
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + opcao);
+			}
+			
+		}
+	}
+}

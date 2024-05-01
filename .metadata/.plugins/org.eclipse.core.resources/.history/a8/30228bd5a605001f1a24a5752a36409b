@@ -1,0 +1,401 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.configuracao.Entrada;
+import sistema_restaurante.sistema.configuracao.Visual;
+import sistema_restaurante.sistema.modelo.Pessoa;
+import sistema_restaurante.sistema.persistencia.BaseDados;
+import sistema_restaurante.sistema.persistencia.Lista;
+import sistema_restaurante.sistema.visual.VisualPessoa;
+
+public class ControlePessoa {
+	private VisualPessoa visual;
+	private Lista<Pessoa> base = BaseDados.getInstance().getBasePessoa();
+	private Lista<Pessoa> baseFuncinario = BaseDados.getInstance().getBaseFuncionario();
+	
+	public ControlePessoa() {
+		visual = new VisualPessoa();
+	}
+	
+	public void menuCliente() {
+		boolean ehSair = false;
+		
+		while (!ehSair) {		
+			visual.limparCampos();
+			visual.menuCliente();
+			String opcao = Entrada.getInstance().retornaDado("ESCOLHA SUA OPCAO: ");
+			
+			switch (opcao) {
+			case "1": {
+				novoCliente();
+				break;
+			}
+			
+			case "2": {
+				buscarCliente();
+				break;
+			}
+			
+			case "3": {
+				alterarCliente();
+				
+				break;
+			}
+			
+			case "4": {
+				excluirCliente();
+				break;
+			}
+			
+			case "9": {
+				ehSair = true;
+				break;
+			}
+			
+			case "0": {
+				System.exit(1);
+			}
+			
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+		}
+	}
+
+	private void alterarCliente() {
+		Pessoa pessoa = buscaClientePorCpf();
+		
+		if (pessoa == null) {
+			Visual.getInstance().visualizarTextoAlinhadoCentro("CLIENTE NAO EXISTE!");
+		} else {
+			String opcao = Entrada.getInstance().retornaDado("ALTERA CLIENTE [S / N] ?: ");
+			
+			if (opcao.equals("S") || opcao.equals("s")) {
+				visual.alterarCliente();
+				
+				if (visual.getCampoCpf().equals(pessoa.getCpf())) {
+					while (base.hasNext()) {
+						Pessoa pessoaAlterar = base.next();
+						
+						if (pessoaAlterar.getCpf().equals(pessoa.getCpf())) {
+							pessoaAlterar.setNome(visual.getCampoNome());
+							pessoaAlterar.setEndereco(visual.getCampoEndereco());
+						}
+					}
+				}
+			}
+		}
+		
+		
+	}
+
+	private void excluirCliente() {
+		visual.limparCampos();
+		
+		Pessoa pessoa = buscaClientePorCpf();
+		
+		if (pessoa == null) {
+			Visual.getInstance().visualizarTextoAlinhadoCentro("CLIENTE NAO EXISTE");
+		} else {
+			base.deleteByItem(pessoa);
+			Visual.getInstance().visualizarTextoAlinhadoCentro("PESSOA EXCLUIDA COM SUCESSO!");
+		}
+	}
+
+	public void buscarCliente() {
+		visual.limparCampos();
+		boolean ehSair = false;
+		
+		while (!ehSair) {
+			visual.menuBuscarCliente();
+			String opcao = Entrada.getInstance().retornaDado("DIGITE SUA OPCAO: ");
+			
+			switch (opcao) {
+			
+			case "1": {
+				buscaClientePorCpf();
+				
+				break;
+			}
+		
+			case "2": {
+				buscarTodosClientes();
+				
+				break;
+			}
+			case "9": {
+				ehSair = true;
+				break;
+			}
+			
+			case "0": {
+				System.exit(1);
+			}
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+		}
+	}
+
+	private void novoCliente() {
+		visual.limparCampos();
+		
+		visual.novoCliente();
+		visual.verificarCampos();
+		
+		String ehSalvar = Entrada.getInstance().retornaDado("SALVAR DADOS DO CLIENTE [S / N]: ");
+		
+		if ((ehSalvar.equals("S")) || (ehSalvar.equals("s"))) {
+			Pessoa cliente = new Pessoa(visual.getCampoNome(), 
+					                   visual.getCampoCpf(), 
+					                   visual.getCampoEndereco(), 
+					                   visual.getCampoTipo());
+			
+			
+			if (BaseDados.getInstance().getBasePessoa().isEmpty()) {
+				BaseDados.getInstance().getBasePessoa().insertBegin(cliente);
+				visual.mensagemDadosSalvos();
+			} else {
+				boolean podeSalvar = true;
+				while (BaseDados.getInstance().getBasePessoa().hasNext()) {
+					if (BaseDados.getInstance().getBasePessoa().next().getCpf().equals(cliente.getCpf())) {
+						podeSalvar = false;
+					} 
+				}
+				
+				if (podeSalvar) {
+					BaseDados.getInstance().getBasePessoa().insertBegin(cliente);
+				} else {
+					
+					visual.mensagemClienteCadastradoSistema();
+				}
+			}
+		} else {
+			visual.mensagemDadosNaoSalvos();
+		}
+	}
+
+	public void buscarTodosClientes() {
+		visual.limparCampos();
+		
+		if (BaseDados.getInstance().getBasePessoa().isEmpty()) {
+			Visual.getInstance().visualizarTextoAlinhadoCentro("BASE DE CLIENTES VAZIA");
+		} else {
+			visual.buscarTodosClientesInicio();
+			
+			while (BaseDados.getInstance().getBasePessoa().hasNext()) {
+				Pessoa cliente = BaseDados.getInstance().getBasePessoa().next();
+				visual.setCampoNome(cliente.getNome());
+				visual.setCampoCpf(cliente.getCpf());
+				visual.setCampoEndereco(cliente.getEndereco());
+				
+				visual.mostrarClienteEmColuna();
+			}
+			
+			visual.buscarTodosClientesFim();
+		}
+		
+		Entrada.getInstance().retornaDado("DIGITE ENTER PARA SAIR ...");
+	}
+	
+	public Pessoa buscaClientePorCpf() {
+		visual.limparCampos();
+		Pessoa clienteRetorno;
+		
+		visual.buscaClienteCpf();
+		clienteRetorno = null;
+		while (BaseDados.getInstance().getBasePessoa().hasNext()) {
+			Pessoa cliente = BaseDados.getInstance().getBasePessoa().next();
+			
+			if (cliente.getCpf().equals(visual.getCampoCpf())) {
+				clienteRetorno = cliente;
+			}
+		}
+		
+		if (clienteRetorno == null) {
+			visual.clienteNaoEncontrado();
+			Entrada.getInstance().retornaDado("DIGITE ENTER PARA CONTINUAR ...");
+		} else {
+			visual.setCampoNome(clienteRetorno.getNome());
+			visual.setCampoCpf(clienteRetorno.getCpf());
+			visual.setCampoEndereco(clienteRetorno.getEndereco());
+			
+			visual.verificarCampos();
+			Entrada.getInstance().retornaDado("DIGITE ENTER PARA CONTINUAR ...");
+		}
+		
+		return clienteRetorno;
+	}
+
+
+
+	// METODOS FUNCIONARIO
+	public void menuFuncionario() {
+		boolean ehSair = false;
+		
+		while (!ehSair) {		
+			visual.limparCampos();
+			visual.menuFuncionario();
+			String opcao = Entrada.getInstance().retornaDado("ESCOLHA SUA OPCAO: ");
+			
+			switch (opcao) {
+			case "1": {
+				novoFuncionario();
+				break;
+			}
+			
+			case "2": {
+				buscarFuncionario();
+				break;
+			}
+			
+			case "3": {
+//				alterarFuncionario();
+				
+				break;
+			}
+			
+			case "4": {
+//				excluirFuncionario();
+				break;
+			}
+			
+			case "9": {
+				ehSair = true;
+				break;
+			}
+			
+			case "0": {
+				System.exit(1);
+			}
+			
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+		}
+	}
+
+	public void buscarFuncionario() {
+		visual.limparCampos();
+		boolean ehSair = false;
+		
+		while (!ehSair) {
+			visual.menuBuscarFuncionario();
+			String opcao = Entrada.getInstance().retornaDado("DIGITE SUA OPCAO: ");
+			
+			switch (opcao) {
+			
+			case "1": {
+				buscaFuncionarioPorCpf();
+				
+				break;
+			}
+		
+			case "2": {
+				buscarTodosFuncionarios();
+				
+				break;
+			}
+			case "9": {
+				ehSair = true;
+				break;
+			}
+			
+			case "0": {
+				System.exit(1);
+			}
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+		}
+	}
+
+	private void buscarTodosFuncionarios() {
+		visual.limparCampos();
+		
+		if (baseFuncinario.isEmpty()) {
+			Visual.getInstance().visualizarTextoAlinhadoCentro("BASE DE FUNCIONARIOS VAZIA");
+		} else {
+			visual.buscarTodosFuncionariosInicio();
+			
+			while (baseFuncinario.hasNext()) {
+				Pessoa funcionario = baseFuncinario.next();
+				visual.setCampoNome(funcionario.getNome());
+				visual.setCampoCpf(funcionario.getCpf());
+				visual.setCampoEndereco(funcionario.getEndereco());
+				
+				visual.mostrarClienteEmColuna();
+			}
+			
+			visual.buscarTodosClientesFim();
+		}
+		
+		Entrada.getInstance().retornaDado("DIGITE ENTER PARA SAIR ...");
+	}
+
+	private Pessoa buscaFuncionarioPorCpf() {
+		visual.limparCampos();
+		Pessoa funcionarioRetorno;
+		
+		visual.buscaFuncionarioCpf();
+		funcionarioRetorno = null;
+		while (baseFuncinario.hasNext()) {
+			Pessoa funcionario = baseFuncinario.next();
+			
+			if (funcionario.getCpf().equals(visual.getCampoCpf())) {
+				funcionarioRetorno = funcionario;
+			}
+		}
+		
+		if (funcionarioRetorno == null) {
+			visual.funcionarioNaoEncontrado();
+			Entrada.getInstance().retornaDado("DIGITE ENTER PARA CONTINUAR ...");
+		} else {
+			visual.setCampoNome(funcionarioRetorno.getNome());
+			visual.setCampoCpf(funcionarioRetorno.getCpf());
+			visual.setCampoEndereco(funcionarioRetorno.getEndereco());
+	
+			visual.verificarCampos();
+			Entrada.getInstance().retornaDado("DIGITE ENTER PARA CONTINUAR ...");
+		}
+		
+		return funcionarioRetorno;
+	}
+
+	private void novoFuncionario() {
+		visual.limparCampos();
+		
+		visual.novoFuncionario();
+		visual.verificarCampos();
+		
+		String ehSalvar = Entrada.getInstance().retornaDado("SALVAR DADOS DO FUNCIONARIO [S / N]: ");
+		
+		if ((ehSalvar.equals("S")) || (ehSalvar.equals("s"))) {
+			Pessoa funcionario = new Pessoa(visual.getCampoNome(), 
+					                   visual.getCampoCpf(), 
+					                   visual.getCampoEndereco(), 
+					                   visual.getCampoTipo());
+			
+			
+			if (baseFuncinario.isEmpty()) {
+				baseFuncinario.insertBegin(funcionario);
+				visual.mensagemDadosSalvos();
+			} else {
+				boolean podeSalvar = true;
+				while (baseFuncinario.hasNext()) {
+					if (baseFuncinario.next().getCpf().equals(funcionario.getCpf())) {
+						podeSalvar = false;
+					} 
+				}
+				
+				if (podeSalvar) {
+					baseFuncinario.insertBegin(funcionario);
+				} else {
+					
+					visual.mensagemClienteCadastradoSistema();
+				}
+			}
+		} else {
+			visual.mensagemDadosNaoSalvos();
+		}
+	}
+}

@@ -1,0 +1,25 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.visual.VisualProduto;
+
+public class ControleProduto {
+	// ATRIBUTOS
+	private VisualProduto visual;
+	
+	
+	
+	// CONSTRUTOR
+	public ControleProduto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	// GETTERS AND SETTERS
+	public VisualProduto getVisual() {
+		return visual;
+	}
+	public void setVisual(VisualProduto visual) {
+		this.visual = visual;
+	}
+}

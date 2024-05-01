@@ -1,0 +1,51 @@
+package sistema_restaurante.sistema.persistencia;
+
+import sistema_restaurante.sistema.modelo.Mesa;
+import sistema_restaurante.sistema.modelo.Pedido;
+import sistema_restaurante.sistema.modelo.Pessoa;
+
+public class BaseDados {
+	// ATRIBUTO
+	private static BaseDados instance;
+	private Lista<Pessoa>    basePessoa  = new Lista<Pessoa>();
+	private Lista<Pessoa>    funcionario = new Lista<Pessoa>();
+	private Lista<Pedido>    basePedido  = new Lista<Pedido>();
+	private Lista<Mesa>      baseMesa    = new Lista<Mesa>();
+	
+
+	
+	// CONSTRUTOR COMPOSTO SINGLETON
+	private BaseDados() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static BaseDados getInstance() {
+		if (instance == null) {
+			instance = new BaseDados();
+		}
+		
+		return instance;
+	}
+	
+	
+	
+	// GETTERS AND SETTERS
+	public Lista<Pessoa> getBasePessoa() {
+		return basePessoa;
+	}
+	public void setBasePessoa(Lista<Pessoa> basePessoa) {
+		this.basePessoa = basePessoa;
+	}
+	public Lista<Pedido> getBasePedido() {
+		return basePedido;
+	}
+	public void setBasePedido(Lista<Pedido> basePedido) {
+		this.basePedido = basePedido;
+	}
+	public Lista<Mesa> getBaseMesa() {
+		return baseMesa;
+	}
+	public void setBaseMesa(Lista<Mesa> baseMesa) {
+		this.baseMesa = baseMesa;
+	}
+}

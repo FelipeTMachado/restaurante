@@ -1,0 +1,120 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.configuracao.Entrada;
+import sistema_restaurante.sistema.configuracao.Visual;
+import sistema_restaurante.sistema.modelo.Pedido;
+import sistema_restaurante.sistema.modelo.Pessoa;
+import sistema_restaurante.sistema.modelo.Produto;
+import sistema_restaurante.sistema.persistencia.BaseDados;
+import sistema_restaurante.sistema.persistencia.Lista;
+import sistema_restaurante.sistema.tipo.EStatusPedido;
+import sistema_restaurante.sistema.visual.VisualCaixa;
+
+public class ControleCaixa {
+	// ATRIBUTOS
+	private VisualCaixa visual;
+	private Lista<Pedido> pedidos; 
+	
+	// CONSTRUTOR
+	public ControleCaixa() {
+		visual = new VisualCaixa();
+		pedidos = BaseDados.getInstance().getBasePedido();
+	}
+	
+	
+	// METODOS FUNCIONAIS
+	public void menuPrincipal() {
+		boolean ehSair = false;
+		
+		while (!ehSair) {
+			visual.menuPrincipal();
+			String opcao = Entrada.getInstance().retornaDado("DIGITE SUA ESCOLHA: ");
+			
+			switch (opcao) {
+			case "1": {
+				valorArrecadadoComPedidos();
+				break;
+			}
+			
+			case "2": {
+				valorArrecadadoPorCliente();
+				break;
+			}
+			
+			case "3": {
+				valorTotalRecebido();
+				break;
+			}
+			
+			case "9": {
+				ehSair = true;
+				break;
+			}
+			
+			case "0": {
+				System.exit(1);
+			}
+			
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+			
+		}
+	}
+
+	private void valorTotalRecebido() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void valorArrecadadoPorCliente() {
+		visual.inicioValorArrecadado("VALOR ARRECADADO POR CLIENTE");
+		Double somaTotal = 0.0;
+		Double soma = 0.0;
+		
+		Lista<Pessoa> pessoas = new Lista<Pessoa>();
+		while (pedidos.hasNext()) {
+			
+		}
+		
+	}
+
+	private void valorArrecadadoComPedidos() {
+		visual.inicioValorArrecadado("VALOR ARRECADADO COM PEDIDOS");
+		Double somaTotal = 0.0;
+		Double soma = 0.0;
+		while (pedidos.hasNext()) {
+			Pedido pedido = pedidos.next();
+			soma = 0.0;
+			if (pedido.getStatus() == EStatusPedido.ENTREGUE) {
+				while (pedido.getProdutos().hasNext()) {
+					Produto produto = pedido.getProdutos().next();
+					soma += produto.getValor();
+				}
+				
+				visual.mostrarPedidoPorColuna(pedido.getCodigo(), pedido.getCliente().getNome(), soma);
+				
+				somaTotal += soma;
+			}
+		}
+		
+		visual.finalValorArrecadadoComPedidos(somaTotal);
+		Entrada.getInstance().retornaDado("PRESSIONE ENTER PARA CONTINUAR ...");
+	}
+
+	
+	
+	// GETTERS AND SETTERS
+	public VisualCaixa getVisual() {
+		return visual;
+	}
+	public void setVisual(VisualCaixa visual) {
+		this.visual = visual;
+	}
+	public Lista<Pedido> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(Lista<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+}

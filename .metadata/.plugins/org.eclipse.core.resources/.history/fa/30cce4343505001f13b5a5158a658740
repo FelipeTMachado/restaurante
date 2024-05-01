@@ -1,0 +1,9 @@
+package sistema_restaurante.sistema.visual;
+
+import sistema_restaurante.sistema.configuracao.Visual;
+
+public class VisualMesa {
+	public void menuMesa() {
+		Visual.getInstance().visualizarCabecalho("SISTEMA RESTAURANTE", "GERENCIAMENTO MESA");
+	}
+}

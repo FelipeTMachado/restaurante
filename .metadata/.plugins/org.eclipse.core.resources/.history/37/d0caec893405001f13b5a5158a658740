@@ -1,0 +1,15 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.visual.VisualMesa;
+
+public class ControleMesa {
+	VisualMesa visual;
+	
+	public ControleMesa() {
+		visual = new VisualMesa();
+	}
+	
+	public void menuMesa() {
+		
+	}
+}

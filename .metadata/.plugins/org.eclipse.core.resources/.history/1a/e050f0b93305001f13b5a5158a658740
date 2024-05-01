@@ -1,0 +1,7 @@
+package sistema_restaurante.sistema.modelo;
+
+import sistema_restaurante.sistema.persistencia.Lista;
+
+public class Comanda {
+	private Lista<Produto> produtos = new Lista<Produto>();
+}

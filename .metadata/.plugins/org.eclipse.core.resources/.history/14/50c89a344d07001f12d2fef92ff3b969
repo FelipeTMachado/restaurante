@@ -1,0 +1,433 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.configuracao.Entrada;
+import sistema_restaurante.sistema.configuracao.Visual;
+import sistema_restaurante.sistema.modelo.Mesa;
+import sistema_restaurante.sistema.modelo.Pedido;
+import sistema_restaurante.sistema.modelo.Pessoa;
+import sistema_restaurante.sistema.modelo.Produto;
+import sistema_restaurante.sistema.persistencia.BaseDados;
+import sistema_restaurante.sistema.persistencia.Lista;
+import sistema_restaurante.sistema.tipo.EStatusPedido;
+import sistema_restaurante.sistema.visual.VisualPedido;
+
+public class ControlePedido {
+	// ATRIBUTOS
+	private VisualPedido visual;
+	private Lista<Pedido> base;
+	private Pedido pedido;
+	
+	
+	
+	// CONSTRUTOR
+	public ControlePedido() {
+		visual = new VisualPedido();
+		base = BaseDados.getInstance().getBasePedido();
+	}
+	
+	
+	
+	// METODOS FUNCIONAIS
+	public void menuPrincipal() {
+		boolean ehSair = false;
+		
+		while (!ehSair) {
+			visual.menuPrincipal();
+			
+			String opcao = Entrada.getInstance().retornaDado("ESCOLHA SUA OPCAO: ");
+			
+			switch (opcao) {
+			case "1": {
+				novoPedido();
+				
+				break;
+			}
+			
+			case "2": {
+				buscarPedido();
+				break;
+			}
+			
+			case "9": {
+				ehSair = true;
+				break;
+			}
+			
+			case "0": {
+				System.exit(1);
+			}
+			
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+		}
+	}
+	
+	private void buscarPedido() {
+		boolean ehSair = false;
+		
+		while (!ehSair) {
+			visual.menuBuscaPedido();
+			
+			String opcao = Entrada.getInstance().retornaDado("DIGITE SUA OPCAO: ");
+			
+			switch (opcao) {
+			case "1": {
+				menuBuscarPedidoPorCodigo();
+				
+				break;
+			}
+			
+			case "2": {
+				pedido = buscarTodosPedidos();
+				
+				if (pedido == null) {
+					visual.mensagemPedidoNaoEncontrado();
+				} else {
+					if (pedido.getStatus() == EStatusPedido.CADASTRANDO) {
+						pedidoCadastrado(pedido);
+					} 			
+					
+					if (pedido.getStatus() == EStatusPedido.EMPRODUCAO) {
+						enviarProducao();
+					}
+				}
+				
+				break;
+			}
+			
+			case "9": {
+				ehSair = true;
+				break;
+			}
+			case "0": {
+				System.exit(1);
+			}
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+		}
+	}
+
+	private void menuBuscarPedidoPorCodigo() {
+		visual.menuBuscarPedidoPorCodigo();
+		
+		if (visual.getCampoCodigo() == 0) {
+			visual.mensagemPedidoNaoEncontrado();
+		} else {
+			pedido = buscarPedidoPorCodigo(visual.getCampoCodigo());
+			
+			if (pedido != null) {
+				if (pedido.getStatus() == EStatusPedido.CADASTRANDO) {
+					pedidoCadastrado(pedido);
+				} 			
+				
+				if (pedido.getStatus() == EStatusPedido.EMPRODUCAO) {
+					enviarProducao();
+				}
+				
+			} else {
+				visual.mensagemPedidoNaoEncontrado();
+			}
+		}
+	}
+
+	private Pedido buscarTodosPedidos() {
+		visual.inicioListaPedidos();
+		
+		while (base.hasNext()) {
+			Pedido busca = base.next();
+			
+			visual.setCampoCliente(busca.getCliente());
+			visual.setCampoGarcom(busca.getGarcom());
+			visual.setCampoCodigo(busca.getCodigo());
+			visual.setCamposMesa(busca.getMesa());
+			visual.setCampoStatus(busca.getStatus());
+			
+			visual.mostrarPedidoEmColuna();
+		}
+		
+		String opcao = Entrada.getInstance().retornaDado("DIGITE O CODIGO DO PEDIDO: ");
+		Integer op;
+		try {
+			op = Integer.parseInt(opcao);
+		} catch (Exception e) {
+			op = 0;
+		}
+	
+		return buscarPedidoPorCodigo(op);	
+	}
+
+	private Pedido buscarPedidoPorCodigo(Integer codigo) {
+		Pedido pedido = new Pedido();
+		
+		pedido.setCodigo(codigo);
+		return base.findItem(pedido);
+	}
+
+	private void novoPedido() {
+		pedido = new Pedido();
+		Pessoa garcom;
+		Pessoa cliente;
+		Mesa mesa;
+		boolean status = true;
+		
+		boolean ehSair = false;
+		
+		
+		if (base.isEmpty()) {
+			pedido.setCodigo(1);
+		} else {
+			pedido.setCodigo(base.size() + 1);
+		}
+		
+		while (!ehSair) {
+			do {
+				visual.inicioPedido(pedido.getCodigo());	
+				String opcao = Entrada.getInstance().retornaDado("CANCELAR PEDIDO [S / n]: ");
+				
+				if (opcao.equals("S") || opcao.equals("s")) {
+					ehSair = true;
+				} else {
+					garcom  = new Pessoa(visual.getCampoCpfGarcom());
+					cliente = new Pessoa(visual.getCampoCpfCliente());
+					
+					Integer numeroMesa;
+					
+					try {
+						numeroMesa = Integer.parseInt(visual.getCampoNumeroMesa());
+					} catch (Exception e) {
+						numeroMesa = 0;
+					}
+					
+					mesa    = (new ControleMesa()).buscarMesaPorIndex(numeroMesa - 1);
+					garcom  = BaseDados.getInstance().getBaseFuncionario().findItem(garcom);
+					cliente = BaseDados.getInstance().getBasePessoa().findItem(cliente);
+					
+//					Lista<Mesa> baseMesa = BaseDados.getInstance().getBaseMesa();
+					
+					if (mesa == null) {
+						visual.mensagemMesaNaoEncontrada();
+						status = status && false;
+					}
+					
+					if (cliente == null) {
+						visual.mensagemPessoaNaoEncontrada("CLIENTE");
+						status = status && false;
+					}
+					
+					if (garcom == null) {
+						status = status && false;
+						visual.mensagemPessoaNaoEncontrada("GARCOM");
+					}
+					
+					if (status) {
+						pedido.setCliente(cliente);
+						pedido.setGarcom(garcom);
+						pedido.setMesa(mesa);
+						pedido.setStatus(EStatusPedido.CADASTRANDO);
+						
+						base.insertBegin(pedido);
+						ehSair = true;
+						pedidoCadastrado(pedido);
+					}
+				}
+				
+			} while (!ehSair);
+			
+			
+		}
+	}
+
+	private void pedidoCadastrado(Pedido pedido) {
+		boolean ehSair = false;
+		
+		while (!ehSair) {
+			visual.novoCadastrado(pedido.getCodigo());
+			String opcao = Entrada.getInstance().retornaDado("DIGITE SUA OPCAO: ");
+			
+			switch (opcao) {
+			case "1": {
+				adicionarProdutoAoPedido();
+				
+				break;
+			}
+			
+			case "2": {
+				visualizarProdutosPedido();
+				
+				break;
+			}
+			
+			case "3": {
+				excluirProdutoPedido();
+				
+				break;
+			}
+			
+			case "4": {
+				if (pedido.getProdutos().isEmpty()) {
+					visual.mensagemNaoHaProdutoNoPedido();
+				} else {
+					enviarProducao();
+					ehSair = true;
+				}
+
+				break;
+			}
+			
+			case "9": {
+				ehSair = true;
+				break;
+			}
+			
+			case "0": {
+				System.exit(1);
+			}
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+		}
+	}
+
+	private void enviarProducao() {
+		boolean ehSair = false;
+		pedido.setStatus(EStatusPedido.EMPRODUCAO);
+		
+		while(!ehSair) {
+			visual.menuEmProducao(pedido.getCodigo());
+			
+			String opcao = Entrada.getInstance().retornaDado("DIGITE SUA OPCAO: ");
+			
+			switch (opcao) {
+			case "1": {
+				visualizarProdutosPedido();
+				break;
+			}
+			
+			case "2": {
+				cancelarPedido();
+				
+				if (pedido == null) {
+					ehSair = true;
+				}
+				
+				break;
+			}
+			
+			case "3": {
+				entregarPedido();
+				
+				if (pedido.getStatus() == EStatusPedido.ENTREGUE) {
+					
+					ehSair = true;
+				}
+				
+				break;
+			}
+			
+			case "9": {
+				ehSair = true;
+				break;
+			}
+			
+			case "0": {
+				System.exit(1);
+			}
+			
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+			
+		}
+	}
+
+	private void entregarPedido() {
+		Visual.getInstance().visualizarCabecalho("SISTEMA RESTAURANTE", "ATENCAO");
+		String opcao = Entrada.getInstance().retornaDado("ENTREGAR PEDIDO [S / n]: ");
+		
+		if (opcao.equals("S") || opcao.equals("s")) {
+			pedido.setStatus(EStatusPedido.ENTREGUE);
+			visual.mensagemPedidoEntregue();
+		} else {
+			visual.mensagemPedidoNaoEntregue();
+		}
+	}
+
+
+
+	private void cancelarPedido() {
+		visual.cancelarProduto();
+		
+		String opcao = Entrada.getInstance().retornaDado("DESEJA CANCELAR O PEDIDO [S / n]: ");
+		
+		if (opcao.equals("S") || opcao.equals("s")) {
+			base.deleteByItem(pedido);
+			pedido = null;
+			visual.mensagemPedidoCancelado();
+		} else {
+			visual.mensagemPedidoNaoCancelado();
+		}
+	}
+
+
+
+	private void excluirProdutoPedido() {
+		visual.excluirProdutoPedido();
+		
+		if (visual.getCampoCodigoProduto() != 0) {
+			Produto prod = new Produto();
+			prod.setCodigo(visual.getCampoCodigoProduto());
+			
+			if (pedido.getProdutos().findItem(prod) != null) {
+				pedido.getProdutos().deleteByItem(prod);
+				visual.mensagemProdutoExcluido();
+			} else {
+				visual.mensagemProdutoNaoEncontrado();
+			}
+		} else {
+			visual.mensagemProdutoNaoEncontrado();
+		}		
+	}
+
+	private void visualizarProdutosPedido() {
+		ControleProduto controleProduto = new ControleProduto();
+		controleProduto.getVisual().menuBuscar();
+		
+		while (pedido.getProdutos().hasNext()) {
+			Produto prod = pedido.getProdutos().next();
+			
+			controleProduto.getVisual().setCampoCodigo(prod.getCodigo());
+			controleProduto.getVisual().setCampoDescricao(prod.getDescricao());
+			controleProduto.getVisual().setCampoValor(prod.getValor());
+			
+			controleProduto.getVisual().visualizarProdutoEmColuna();
+		
+		}
+		
+		Entrada.getInstance().retornaDado("PRESSIONE ENTER PARA CONTINUAR ...");
+	}
+
+	private void adicionarProdutoAoPedido() {
+		ControleProduto controleProduto = new ControleProduto();
+		
+		Produto produto = controleProduto.buscarProdutos();
+		
+		if (produto != null) {
+			pedido.getProdutos().insertBegin(produto);
+			visual.mensagemProdutoAdicionado();
+		} else {
+			controleProduto.getVisual().mensagemProdutoNaoExiste();
+		}
+	}
+
+
+
+	// GETTERS AND SETTERS
+	public VisualPedido getVisual() {
+		return visual;
+	}
+	public void setVisual(VisualPedido visual) {
+		this.visual = visual;
+	}
+}

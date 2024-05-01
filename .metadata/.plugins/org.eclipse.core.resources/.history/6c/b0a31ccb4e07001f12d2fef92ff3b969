@@ -1,0 +1,18 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.visual.VisualCaixa;
+
+public class ControleCaixa {
+	// ATRIBUTO
+	VisualCaixa visual;
+	
+	// CONSTRUTOR
+	public ControleCaixa() {
+		visual = new VisualCaixa();
+	}
+	
+	public void menuPrincipal() {
+		
+	}
+	
+}

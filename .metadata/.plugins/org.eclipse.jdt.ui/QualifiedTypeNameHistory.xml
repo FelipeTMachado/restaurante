@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.lang.Enum"/>
+    <fullyQualifiedTypeName name="javax.management.modelmbean.ModelMBean"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.visual.VisualMesa"/>
+    <fullyQualifiedTypeName name="java.lang.Character"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.persistencia.Nodo"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.visual.VisualPessoa"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.controle.ControlePedido"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.visual.VisualPedido"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.lang.FunctionalInterface"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.modelo.Mesa"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.controle.ControlePessoa"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.controle.ControleMesa"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.tipo.ETipoPessoa"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.modelo.Pessoa"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.visual.VisualProduto"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.persistencia.Lista"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.persistencia.BaseDados"/>
+    <fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.controle.ControleProduto"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.modelo.Pedido"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.modelo.Produto"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.tipo.EStatusPedido"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.visual.VisualCaixa"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.controle.ControleCaixa"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.configuracao.Entrada"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.configuracao.Visual"/>
+</qualifiedTypeNameHistroy>

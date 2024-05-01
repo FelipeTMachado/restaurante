@@ -1,0 +1,47 @@
+package sistema_restaurante.sistema.modelo;
+
+import sistema_restaurante.sistema.persistencia.Lista;
+import sistema_restaurante.sistema.tipo.EStatusPedido;
+
+public class Pedido {
+	// ATRIBUTOS
+	private Pessoa garcom;
+	private Mesa mesa;
+	private Lista<Produto> produtos = new Lista<Produto>(); 
+	private EStatusPedido status;
+	
+	
+	
+	// CONSTRUTOR
+	public Pedido() {
+		
+	}
+	
+    
+	
+	// GETTERS AND SETTERS
+	public Pessoa getGarcom() {
+		return garcom;
+	}
+	public void setGarcom(Pessoa garcom) {
+		this.garcom = garcom;
+	}
+	public Mesa getMesa() {
+		return mesa;
+	}
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
+	}
+	public Lista<Produto> getProdutos() {
+		return produtos;
+	}
+	public void setProdutos(Lista<Produto> produtos) {
+		this.produtos = produtos;
+	}
+	public EStatusPedido getStatus() {
+		return status;
+	}
+	public void setStatus(EStatusPedido status) {
+		this.status = status;
+	}
+}

@@ -1,0 +1,14 @@
+package sistema_restaurante.sistema.persistencia;
+
+public class Nodo<T> {
+	// ATRIBUTO
+	private T value;
+	private Nodo<T> next;
+	private Nodo<T> back;
+	
+	
+	// CONSTRUTOR
+	public Nodo(T value) {
+		
+	}
+}

@@ -1,0 +1,7 @@
+package sistema_restaurante.sistema.tipo;
+
+public enum EStatusPedido {
+	CADASTRANDO,
+	PRODUCAO,
+	ENTREGUE
+}

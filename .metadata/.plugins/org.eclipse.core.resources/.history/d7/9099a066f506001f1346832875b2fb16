@@ -1,0 +1,37 @@
+package sistema_restaurante.sistema.visual;
+
+public class VisualProduto {
+	// ATRIBUTOS
+	private Integer campoCodigo;
+	private String campoNome;
+	private Double campoValor;
+	
+	
+	
+	// CONSTRUTOR
+	public VisualProduto() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	// GETTERS AND SETTERS
+	public Integer getCampoCodigo() {
+		return campoCodigo;
+	}
+	public void setCampoCodigo(Integer campoCodigo) {
+		this.campoCodigo = campoCodigo;
+	}
+	public String getCampoNome() {
+		return campoNome;
+	}
+	public void setCampoNome(String campoNome) {
+		this.campoNome = campoNome;
+	}
+	public Double getCampoValor() {
+		return campoValor;
+	}
+	public void setCampoValor(Double campoValor) {
+		this.campoValor = campoValor;
+	}
+}

@@ -1,0 +1,16 @@
+package sistema_restaurante.sistema.visual;
+
+import sistema_restaurante.sistema.configuracao.Visual;
+
+public class VisualCaixa {
+	// CONSTRUTOR
+	public VisualCaixa() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void menuPrincipal() {
+		Visual.getInstance().visualizarCabecalho("SISTEMA RESTAURANTE", "CAIXA");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("1 - ");
+		
+	}
+}

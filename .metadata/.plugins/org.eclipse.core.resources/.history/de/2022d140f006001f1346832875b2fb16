@@ -1,0 +1,25 @@
+package sistema_restaurante.sistema.tipo;
+
+public enum EStatusPedido {
+	CADASTRANDO,
+	PRODUCAO,
+	ENTREGUE,
+	PENDENTE;
+	
+	@Override
+	public String toString() {
+		switch (this.ordinal()) {
+		case 0: {
+			return "Cadastrando";
+		}
+		case 1: {
+			return "Em Producao";
+		}
+		case 2: {
+			return "Entregue";
+		}
+		default:
+			return "Pendente";
+		}
+	}
+}

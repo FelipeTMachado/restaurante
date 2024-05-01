@@ -1,0 +1,94 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.configuracao.Entrada;
+import sistema_restaurante.sistema.configuracao.Visual;
+import sistema_restaurante.sistema.modelo.Produto;
+import sistema_restaurante.sistema.persistencia.BaseDados;
+import sistema_restaurante.sistema.persistencia.Lista;
+import sistema_restaurante.sistema.visual.VisualProduto;
+
+public class ControleProduto {
+	// ATRIBUTOS
+	private VisualProduto visual;
+	private Lista<Produto> base;
+	
+	
+	
+	// CONSTRUTOR
+	public ControleProduto() {
+		visual = new VisualProduto();
+		base = BaseDados.getInstance().getBaseProduto();
+	}
+	
+	
+	
+	// METODOS FUNCIONAIS
+	public void menuProduto() {
+		boolean ehSair = false;
+		
+		while(!ehSair) {
+			visual.menuGerenciamento();
+			
+			String opcao = Entrada.getInstance().retornaDado("DIGITE SUA OPCAO: ");
+			
+			switch (opcao) {
+			case "1": {
+				menuNovo();
+				break;
+			}
+			
+			case "2": {
+				
+				break;
+			}
+
+			case "3": {
+				buscarProdutos();
+				break;
+			}
+
+			case "9": {
+				ehSair = true;
+				break;
+			}
+
+			case "0": {
+				System.exit(1);
+			}
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+			
+		}
+	}
+	
+	
+	
+	private void buscarProdutos() {
+		visual.menuBuscar();
+		visual.visualizarProdutoEmColuna();
+		Entrada.getInstance().retornaDado("DIGITE UM PRODUTO PARA ESCOLHER: ");
+	}
+
+
+
+	private void menuNovo() {
+		visual.menuNovo();
+		
+		Produto produto = new Produto(visual.getCampoDescricao(), visual.getCampoValor());
+		
+		produto.setCodigo(base.size() + 1);
+		
+		visual.mensagemProdutoCadastradoSucesso();
+	}
+
+
+
+	// GETTERS AND SETTERS
+	public VisualProduto getVisual() {
+		return visual;
+	}
+	public void setVisual(VisualProduto visual) {
+		this.visual = visual;
+	}
+}

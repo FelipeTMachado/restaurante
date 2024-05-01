@@ -1,0 +1,69 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.configuracao.Entrada;
+import sistema_restaurante.sistema.configuracao.Visual;
+import sistema_restaurante.sistema.visual.VisualProduto;
+
+public class ControleProduto {
+	// ATRIBUTOS
+	private VisualProduto visual;
+	
+	
+	
+	// CONSTRUTOR
+	public ControleProduto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	// METODOS FUNCIONAIS
+	public void menuPrincipal() {
+		boolean ehSair = false;
+		
+		while(!ehSair) {
+			visual.menuGerenciamento();
+			
+			String opcao = Entrada.getInstance().retornaDado("DIGITE SUA OPCAO: ");
+			
+			switch (opcao) {
+			case "1": {
+				
+				break;
+			}
+			
+			case "2": {
+				
+				break;
+			}
+
+			case "3": {
+	
+				break;
+			}
+
+			case "9": {
+	
+				break;
+			}
+
+			case "0": {
+				System.exit(1);
+			}
+			default:
+				Visual.getInstance().visualizarMensagemOpcaoInvalida();
+			}
+			
+		}
+	}
+	
+	
+	
+	// GETTERS AND SETTERS
+	public VisualProduto getVisual() {
+		return visual;
+	}
+	public void setVisual(VisualProduto visual) {
+		this.visual = visual;
+	}
+}

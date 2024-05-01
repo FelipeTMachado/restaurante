@@ -1,0 +1,11 @@
+package sistema_restaurante.sistema.controle;
+
+import sistema_restaurante.sistema.visual.VisualProduto;
+
+public class ControleProduto {
+	private VisualProduto visual;
+	
+	public ControleProduto() {
+		// TODO Auto-generated constructor stub
+	}
+}
