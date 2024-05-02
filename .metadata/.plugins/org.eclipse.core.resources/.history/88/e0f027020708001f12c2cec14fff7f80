@@ -16,7 +16,7 @@ public class Pessoa {
 		this.nome       = n;
 		this.cpf        = c;
 		this.endereco   = e;
-		this.tipo       = t;
+		this.tipo = tipo;
 	}
 	public Pessoa(String cpf) {
 		this.cpf = cpf;
@@ -52,9 +52,9 @@ public class Pessoa {
 
 
 	@Override
+	
 	public String toString() {
-		return "Pessoa [nome=" + nome + ", cpf=" + cpf + 
-			   ", endereco=" + endereco + ", tipo=" + tipo + "]";
+		return "Pessoa [nome=" + nome + ", cpf=" + cpf + ", endereco=" + endereco + ", tipo=" + tipo + "]";
 	}
 
 	@Override

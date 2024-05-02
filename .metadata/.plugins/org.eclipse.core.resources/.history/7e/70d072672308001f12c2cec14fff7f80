@@ -211,6 +211,8 @@ public class ControlePedido {
 					garcom  = BaseDados.getInstance().getBaseFuncionario().findItem(garcom);
 					cliente = BaseDados.getInstance().getBasePessoa().findItem(cliente);
 					
+//					Lista<Mesa> baseMesa = BaseDados.getInstance().getBaseMesa();
+					
 					if (mesa == null) {
 						visual.mensagemMesaNaoEncontrada();
 						status = status && false;
@@ -239,6 +241,8 @@ public class ControlePedido {
 				}
 				
 			} while (!ehSair);
+			
+			
 		}
 	}
 

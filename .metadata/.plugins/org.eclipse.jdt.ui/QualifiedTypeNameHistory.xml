@@ -23,12 +23,12 @@
     <fullyQualifiedTypeName name="sistema_restaurante.sistema.controle.ControleProduto"/>
     <fullyQualifiedTypeName name="sistema_restaurante.sistema.modelo.Produto"/>
     <fullyQualifiedTypeName name="sistema_restaurante.sistema.visual.VisualCaixa"/>
-    <fullyQualifiedTypeName name="sistema_restaurante.sistema.configuracao.Visual"/>
     <fullyQualifiedTypeName name="sistema_restaurante.sistema.persistencia.BaseDados"/>
     <fullyQualifiedTypeName name="java.lang.Double"/>
     <fullyQualifiedTypeName name="sistema_restaurante.sistema.controle.ControleCaixa"/>
     <fullyQualifiedTypeName name="sistema_restaurante.sistema.tipo.EStatusPedido"/>
-    <fullyQualifiedTypeName name="sistema_restaurante.sistema.configuracao.Entrada"/>
     <fullyQualifiedTypeName name="sistema_restaurante.sistema.persistencia.Lista"/>
     <fullyQualifiedTypeName name="sistema_restaurante.sistema.modelo.Pedido"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.configuracao.Entrada"/>
+    <fullyQualifiedTypeName name="sistema_restaurante.sistema.configuracao.Visual"/>
 </qualifiedTypeNameHistroy>

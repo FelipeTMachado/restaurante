@@ -146,9 +146,7 @@ public class ControlePessoa {
 		visual.novoCliente();
 		visual.verificarCampos();
 		
-		Entrada e = Entrada.getInstance();
-		
-		String ehSalvar = e.retornaDado("SALVAR DADOS DO CLIENTE [S / N]: ");
+		String ehSalvar = Entrada.getInstance().retornaDado("SALVAR DADOS DO CLIENTE [S / N]: ");
 		
 		if ((ehSalvar.equals("S")) || (ehSalvar.equals("s"))) {
 			Pessoa cliente = new Pessoa(visual.getCampoNome(), 
@@ -162,14 +160,14 @@ public class ControlePessoa {
 				visual.mensagemDadosSalvos();
 			} else {
 				boolean podeSalvar = true;
-				while (base.hasNext()) {
-					if (base.next().getCpf().equals(cliente.getCpf())) {
+				while (BaseDados.getInstance().getBasePessoa().hasNext()) {
+					if (BaseDados.getInstance().getBasePessoa().next().getCpf().equals(cliente.getCpf())) {
 						podeSalvar = false;
 					} 
 				}
 				
 				if (podeSalvar) {
-					base.insertBegin(cliente);
+					BaseDados.getInstance().getBasePessoa().insertBegin(cliente);
 				} else {
 					
 					visual.mensagemClienteCadastradoSistema();

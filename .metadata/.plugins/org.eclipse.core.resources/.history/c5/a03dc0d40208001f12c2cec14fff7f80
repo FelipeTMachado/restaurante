@@ -20,8 +20,8 @@ public class VisualProduto {
 	
 	// METODOS FUNCIONAIS
 	public void menuGerenciamento() {
-		Visual v = Visual.getInstance();
-		v.visualizarCabecalho("SISTEMA RESTAURANTE", "GERENCIMENTO PRODUTO");
+		Visual visual = Visual.getInstance();
+		Visual.getInstance().visualizarCabecalho("SISTEMA RESTAURANTE", "GERENCIMENTO PRODUTO");
 		Visual.getInstance().visualizarTextoAlinhadoEsquerda("1 - NOVO");
 		Visual.getInstance().visualizarTextoAlinhadoEsquerda("2 - EXCLUIR");
 		Visual.getInstance().visualizarTextoAlinhadoEsquerda("3 - BUSCAR");

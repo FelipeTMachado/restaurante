@@ -30,7 +30,6 @@ public class VisualPessoa {
 	
 	public void menuCliente() {
 		Visual v = Visual.getInstance();
-		v.visualizarCabecalho("SISTEMA RESTAURANTE", "GERENCIAMENTO CLIENTE");
 		v.visualizarTextoAlinhadoEsquerda("1 - NOVO");
 		v.visualizarTextoAlinhadoEsquerda("2 - BUSCAR");
 		v.visualizarTextoAlinhadoEsquerda("3 - ALTERAR");

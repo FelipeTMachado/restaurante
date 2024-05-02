@@ -147,8 +147,7 @@ public class ControlePessoa {
 		visual.verificarCampos();
 		
 		Entrada e = Entrada.getInstance();
-		
-		String ehSalvar = e.retornaDado("SALVAR DADOS DO CLIENTE [S / N]: ");
+		String ehSalvar = Entrada.getInstance().retornaDado("SALVAR DADOS DO CLIENTE [S / N]: ");
 		
 		if ((ehSalvar.equals("S")) || (ehSalvar.equals("s"))) {
 			Pessoa cliente = new Pessoa(visual.getCampoNome(), 

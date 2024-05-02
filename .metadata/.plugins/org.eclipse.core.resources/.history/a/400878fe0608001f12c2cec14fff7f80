@@ -12,11 +12,11 @@ public class Pessoa {
 	
 	
 	// CONSTRUTOR SIMPLES
-	public Pessoa(String n, String c, String e, ETipoPessoa t) {
-		this.nome       = n;
-		this.cpf        = c;
-		this.endereco   = e;
-		this.tipo       = t;
+	public Pessoa(String nome, String cpf, String end, ETipoPessoa tipo) {
+		this.nome       = nome;
+		this.cpf        = cpf;
+		this.endereco   = end;
+		this.tipo = tipo;
 	}
 	public Pessoa(String cpf) {
 		this.cpf = cpf;
@@ -52,9 +52,9 @@ public class Pessoa {
 
 
 	@Override
+	
 	public String toString() {
-		return "Pessoa [nome=" + nome + ", cpf=" + cpf + 
-			   ", endereco=" + endereco + ", tipo=" + tipo + "]";
+		return "Pessoa [nome=" + nome + ", cpf=" + cpf + ", endereco=" + endereco + ", tipo=" + tipo + "]";
 	}
 
 	@Override
